@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "description": "Learn Flask basics",
+    "completed": false
+  },
+  {
+    "id": 2,
+    "description": "Build web task manager",
+    "completed": false
+  },
+  {
+    "id": 3,
+    "description": "Apply to jobs",
+    "completed": true
+  }
+]

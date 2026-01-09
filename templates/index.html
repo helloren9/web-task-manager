@@ -25,6 +25,20 @@
                         <button type="submit">Complete</button>
                     </form>
                 {% endif %}
+
+                <form method="POST" action="/delete/{{ task['id'] }}" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+
+                <form method="POST" action="/edit/{{ task['id'] }}" style="display: inline;">
+                    <input
+                        type="text"
+                        name="description"
+                        placeholder="Edit task"
+                        required
+                    >
+                    <button type="submit">Edit</button>
+                </form>
             </li>
         {% endfor %}
     </ul>
