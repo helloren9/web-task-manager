@@ -24,6 +24,7 @@ def home():
 @app.route("/add", methods=["POST"])
 def add_task():
     description = request.form.get("description")
+    priority = request.form.get("priority")
 
     if not description or not description.strip():
         return redirect(url_for("home"))
@@ -34,7 +35,8 @@ def add_task():
     tasks.append({
         "id": new_id,
         "description": description,
-        "completed": False
+        "completed": False,
+        "priority": priority
     })
 
     save_tasks(tasks)

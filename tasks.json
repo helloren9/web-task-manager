@@ -1,17 +1,26 @@
 [
   {
-    "id": 1,
+    "id": 4,
+    "description": "Study for interview",
+    "completed": false,
+    "priority": "Medium"
+  },
+  {
+    "id": 5,
     "description": "Learn Flask basics",
-    "completed": false
+    "completed": false,
+    "priority": "Medium"
   },
   {
-    "id": 2,
-    "description": "Build web task manager",
-    "completed": false
+    "id": 6,
+    "description": "Build Web Task Manager",
+    "completed": false,
+    "priority": "High"
   },
   {
-    "id": 3,
+    "id": 7,
     "description": "Apply to jobs",
-    "completed": true
+    "completed": true,
+    "priority": "Medium"
   }
 ]

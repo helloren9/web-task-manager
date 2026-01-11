@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Task Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
@@ -9,6 +10,13 @@
 
 <form method="POST" action="/add">
     <input type="text" name="description" placeholder="New task" required>
+
+    <select name="priority" required>
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+    </select>
+
     <button type="submit">Add Task</button>
 </form>
 
@@ -16,7 +24,12 @@
     <ul>
         {% for task in tasks %}
             <li>
+                <span class="priority {{ task['priority'] | lower}}">
+                    [{{ task["priority"] }}]
+                </span>
+
                 {{ task["description"] }}
+                
                 {% if task["completed"] %}
                     ✅
                 {% else %}
@@ -30,7 +43,24 @@
                     <button type="submit">Delete</button>
                 </form>
 
-                <form method="POST" action="/edit/{{ task['id'] }}" style="display: inline;">
+                <button type ="button" onclick="toggleEdit('{{ task.id }}')">Edit</button>
+
+                <form
+                    id="edit-form-{{ task['id'] }}"
+                    method="POST"
+                    action="/edit/{{ task['id'] }}"
+                    class="edit-form"
+                >
+                    <input 
+                        type="text"
+                        name="description"
+                        value="{{ task['description'] }}"
+                        required
+                    >
+                    <button type="submit">Save</button>
+                </form>
+
+                <!-- <form method="POST" action="/edit/{{ task['id'] }}" style="display: inline;">
                     <input
                         type="text"
                         name="description"
@@ -38,13 +68,23 @@
                         required
                     >
                     <button type="submit">Edit</button>
-                </form>
+                </form> -->
             </li>
         {% endfor %}
     </ul>
 {% else %}
     <p>No tasks found.</p>
 {% endif %}
+
+<script>
+    function toggleEdit(taskId) {
+        const form = document.getElementById(`edit-form-${taskId}`);
+        form.style.display =
+            form.style.display === "none" || form.style.display === ""
+                ? "inline-block"
+                : "none";
+    }
+</script>
 
 </body>
 </html>

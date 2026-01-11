@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 40px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.priority {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.priority.high {
+    color: red;
+}
+
+.priority.medium {
+    color: orange;
+}
+
+.priority.low {
+    color: green;
+}
+
+button {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.edit-form {
+    display: none;
+    margin-top: 5px;
+}
