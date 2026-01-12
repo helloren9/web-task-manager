@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import json
 import os
 
@@ -56,10 +56,11 @@ def complete_task(task_id):
 
 @app.route("/edit/<int:task_id>", methods=["POST"])
 def edit_task(task_id):
-    new_description = request.form.get("description")
+    data = request.get_json()
+    new_description = data.get("description")
 
     if not new_description or not new_description.strip():
-        return redirect(url_for("home"))
+        return jsonify({"error": "Invalid description"}), 400
     
     tasks = load_tasks()
     
@@ -69,7 +70,8 @@ def edit_task(task_id):
             break
 
     save_tasks(tasks)
-    return redirect(url_for("home"))
+
+    return jsonify({"success": True})
 
 @app.route("/delete/<int:task_id>", methods=["POST"])
 def delete_task(task_id):

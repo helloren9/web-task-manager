@@ -47,13 +47,12 @@
 
                 <form
                     id="edit-form-{{ task['id'] }}"
-                    method="POST"
-                    action="/edit/{{ task['id'] }}"
                     class="edit-form"
+                    data-task-id="{{ task['id'] }}"
                 >
                     <input 
                         type="text"
-                        name="description"
+                        id="edit-input-{{ task['id'] }}"
                         value="{{ task['description'] }}"
                         required
                     >
@@ -77,6 +76,29 @@
 {% endif %}
 
 <script>
+    document.querySelectorAll(".edit-form").forEach(form => {
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+            const taskId = form.dataset.taskId;
+            submitEdit(taskId);
+        });
+    });
+
+    function submitEdit(taskId) {
+        const input = document.getElementById(`edit-input-${taskId}`);
+        const newDescription = input.value;
+        
+        fetch(`/edit/${taskId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ description: newDescription })
+        })
+        .then(res => res.json())
+        .then(() => location.reload());
+    }
+
     function toggleEdit(taskId) {
         const form = document.getElementById(`edit-form-${taskId}`);
         form.style.display =
