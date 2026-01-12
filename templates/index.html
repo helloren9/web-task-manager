@@ -52,10 +52,22 @@
                 >
                     <input 
                         type="text"
-                        id="edit-input-{{ task['id'] }}"
+                        name="description"
                         value="{{ task['description'] }}"
                         required
                     >
+
+                    <select name="priority" required>
+                        <option value="Low" {% if task['priority'] == 'Low' %}selected{% endif %}>Low</option>
+                        <option value="Medium" {% if task['priority'] == 'Medium' %}selected{% endif %}>Medium</option>
+                        <option value="High" {% if task['priority'] == 'High' %}selected{% endif %}>High</option>
+                    </select>
+
+                    <!-- <select name="priority" required>
+                        <option value="Low" {% if task['priority'] == 'Low' %}selected{% endif %}>Low</option>
+                        <option value="Medium" {% if task['priority'] == 'Medium' %}selected{% endif %}>Medium</option>
+                        <option value="High" {% if task['priority'] == 'High' %}selected{% endif %}>High</option>
+                    </select> -->
                     <button type="submit">Save</button>
                 </form>
 
@@ -85,18 +97,26 @@
     });
 
     function submitEdit(taskId) {
-        const input = document.getElementById(`edit-input-${taskId}`);
-        const newDescription = input.value;
+
+        const form = document.getElementById(`edit-form-${taskId}`);
+        const description = form.querySelector("input[name='description']").value;
+        const priority = form.querySelector("select[name='priority']").value;
         
         fetch(`/edit/${taskId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ description: newDescription })
+            body: JSON.stringify({ 
+                description: description,
+                priority: priority
+            
+            })
         })
-        .then(res => res.json())
-        .then(() => location.reload());
+        .then(response => response.json())
+        .then(() => {
+            window.location.reload()
+        });
     }
 
     function toggleEdit(taskId) {

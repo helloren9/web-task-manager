@@ -1,11 +1,5 @@
 [
   {
-    "id": 4,
-    "description": "Study for interview",
-    "completed": false,
-    "priority": "Medium"
-  },
-  {
     "id": 5,
     "description": "Learn Flask basics",
     "completed": false,

@@ -57,7 +57,9 @@ def complete_task(task_id):
 @app.route("/edit/<int:task_id>", methods=["POST"])
 def edit_task(task_id):
     data = request.get_json()
+
     new_description = data.get("description")
+    new_priority = data.get("priority")
 
     if not new_description or not new_description.strip():
         return jsonify({"error": "Invalid description"}), 400
@@ -67,6 +69,7 @@ def edit_task(task_id):
     for task in tasks:
         if task["id"] == task_id:
             task["description"] = new_description
+            task["priority"] = new_priority
             break
 
     save_tasks(tasks)
