@@ -48,7 +48,7 @@ def complete_task(task_id):
 
     for task in tasks:
         if task["id"] == task_id:
-            task["completed"] = True
+            task["completed"] = not task['completed']
             break
     
     save_tasks(tasks)
@@ -57,23 +57,27 @@ def complete_task(task_id):
 @app.route("/edit/<int:task_id>", methods=["POST"])
 def edit_task(task_id):
     data = request.get_json()
+    description = data.get("description")
+    priority = data.get("priority")
 
-    new_description = data.get("description")
-    new_priority = data.get("priority")
-
-    if not new_description or not new_description.strip():
-        return jsonify({"error": "Invalid description"}), 400
+    if not description or not description.strip():
+        return jsonify({"success": False, "error": "Invalid description"}), 400
     
     tasks = load_tasks()
-    
+    task_found = False
+
     for task in tasks:
         if task["id"] == task_id:
-            task["description"] = new_description
-            task["priority"] = new_priority
+            task["description"] = description
+            task["priority"] = priority
+            task_found = True
             break
 
-    save_tasks(tasks)
 
+    if not task_found:
+        return jsonify({"success": False, "error": "Task not found"}), 404
+    
+    save_tasks(tasks)
     return jsonify({"success": True})
 
 @app.route("/delete/<int:task_id>", methods=["POST"])
