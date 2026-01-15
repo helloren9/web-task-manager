@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "id": 1,
+    "description": "Buy new luggage",
+    "completed": false,
+    "priority": "Low",
+    "created_at": "2026-01-16T03:37:38.622025"
+  },
+  {
+    "id": 2,
+    "description": "Take a poop",
+    "completed": false,
+    "priority": "High",
+    "created_at": "2026-01-16T03:38:00.800586",
+    "due_date": "2026-01-16T03:37"
+  },
+  {
+    "id": 3,
+    "description": "Apply to jobs",
+    "completed": false,
+    "priority": "Medium",
+    "created_at": "2026-01-16T03:38:33.638350",
+    "due_date": "2026-01-20T03:38"
+  }
+]
